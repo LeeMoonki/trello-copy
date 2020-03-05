@@ -1,4 +1,11 @@
 import Head from 'next/head';
+import styled from 'styled-components';
+
+const Content = styled.p`
+  color: #7e3242;
+  font-size: 15px;
+  font-weight: bold;
+`;
 
 function Home() {
   return (
@@ -6,7 +13,7 @@ function Home() {
       <Head>
         <title>home</title>
       </Head>
-      <p>This is home.</p>
+      <Content>This is home.</Content>
     </div>
   );
 }

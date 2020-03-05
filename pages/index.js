@@ -6,6 +6,7 @@ function Index() {
       <Head>
         <title>index</title>
       </Head>
+      <p>This is index</p>
     </div>
   );
 }
