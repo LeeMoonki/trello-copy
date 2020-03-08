@@ -3,13 +3,20 @@ import '../reset.css';
 import styled from 'styled-components';
 import Theme from '../theme';
 
-const Container = styled.div``;
+const Container = styled.div`
+  overflow: hidden;
+  height: 100vh;
+`;
 const Header = styled.div`
   display: flex;
   position: relative;
   padding: 4px;
   height: 32px;
   background-color: ${props => props.theme.colors.primary};
+`;
+const Content = styled.main`
+  overflow-y: auto;
+  height: calc(100vh - 40px);
 `;
 const HeaderElementsWrapper = styled.div`
   & > .header__button, & > .header__a {
@@ -73,9 +80,6 @@ const ProfileImg = styled.button`
   }
 `;
 
-const Footer = styled.div``;
-
-
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
@@ -89,33 +93,34 @@ function MyApp({ Component, pageProps }) {
       <Container id="trello-container">
         <Header id="header">
           <Left>
-            <A  className="header__a" href="/" onClick={onClickHome}>
-              <span>Home</span>
-            </A>
-            <Button className="header__button">
-              <span>Boards</span>
-            </Button>
-          </Left>
-          <Logo>
-            <a href="/" onClick={onClickHome}>Trello Copy</a>
-          </Logo>
-          <Right>
-            <Button className="header__button">
-              <span>Create</span>
-            </Button>
-            <Button className="header__button">
-              <span>Info</span>
-            </Button>
-            <Button className="header__button">
-              <span>Notification</span>
-            </Button>
-            <ProfileImg>
-              <div></div>
-            </ProfileImg>
-          </Right>
+                <A  className="header__a" href="/" onClick={onClickHome}>
+                  <span>Home</span>
+                </A>
+                <Button className="header__button">
+                  <span>Boards</span>
+                </Button>
+              </Left>
+              <Logo>
+                <a href="/" onClick={onClickHome}>Trello Copy</a>
+              </Logo>
+              <Right>
+                <Button className="header__button">
+                  <span>Create</span>
+                </Button>
+                <Button className="header__button">
+                  <span>Info</span>
+                </Button>
+                <Button className="header__button">
+                  <span>Notification</span>
+                </Button>
+                <ProfileImg>
+                  <div></div>
+                </ProfileImg>
+              </Right>
         </Header>
-        <Component {...pageProps} />
-        <Footer id="footer"></Footer>
+        <Content>
+          <Component {...pageProps} />
+        </Content>
       </Container>
     </Theme>
   );
