@@ -95,8 +95,8 @@ function Boards({ name }) {
           <BoardList
             title="Personal Boards"
             cards={[
-              { title: 'TodoBoard', backgroundColor: '#0079bf', starred: true },
-              { title: 'Project1', backgroundColor: '#d29034', starred: true },
+              { title: 'TodoBoard', backgroundColor: '#0079bf', starred: false },
+              { title: 'Project1', backgroundColor: '#d29034', starred: false },
             ]}
           />
         </BoardsWrapper>

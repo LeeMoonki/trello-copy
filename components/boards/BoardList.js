@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import BoardCard from './BoardCard';
 
 const Container = styled.div`
   max-width: 1250px;
@@ -20,39 +21,24 @@ const BoardCardList = styled.ul`
   display: flex;
   flex-wrap: wrap;
 `;
-const BoardCard = styled.li`
-  width: 23.5%;
-  margin: 0 2% 2% 0;
-  box-sizing: border-box;
-  cursor: pointer;
-
-  & a {
-    padding: 8px;
-    display: block;
-    border-radius: 3px;
-  }
-  & .card-details {
-    height: 80px;
-  }
-`;
 
 function BoardList(props) {
+  
+
   return (
     <Container>
       <Header><h3>{props.title}</h3></Header>
       <div>
         <BoardCardList>
           {props.cards.map((card, index) => {
-            return <BoardCard key={index}>
-              <a
-                style={{
-                  backgroundColor: card.backgroundColor,
-                }}>
-                <div className="card-details">
-                  {card.title}
-                </div>
-              </a>
-            </BoardCard>
+            return (
+              <BoardCard
+                key={index}
+                title={card.title}
+                backgroundColor={card.backgroundColor}
+                starred={card.starred}
+              />
+            );
           })}
         </BoardCardList>
       </div>
