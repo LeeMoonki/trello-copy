@@ -88,15 +88,15 @@ function Boards({ name }) {
           <BoardList
             title="Starred Boards"
             cards={[
-              { title: 'TodoBoard', backgroundColor: '#0079bf', starred: true },
-              { title: 'Project1', backgroundColor: '#d29034', starred: true },
+              { title: 'TodoBoard', boardId: 'si12F1AH', backgroundColor: '#0079bf', starred: true },
             ]}
           />
           <BoardList
             title="Personal Boards"
+            personal={true}
             cards={[
-              { title: 'TodoBoard', backgroundColor: '#0079bf', starred: false },
-              { title: 'Project1', backgroundColor: '#d29034', starred: false },
+              { title: 'TodoBoard', boardId: 'si12F1AH', backgroundColor: '#0079bf', starred: true },
+              { title: 'Project1', boardId: 'B2ji98pu', backgroundColor: '#d29034', starred: false },
             ]}
           />
         </BoardsWrapper>

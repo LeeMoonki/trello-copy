@@ -23,8 +23,6 @@ const BoardCardList = styled.ul`
 `;
 
 function BoardList(props) {
-  
-
   return (
     <Container>
       <Header><h3>{props.title}</h3></Header>
@@ -35,11 +33,15 @@ function BoardList(props) {
               <BoardCard
                 key={index}
                 title={card.title}
+                boardId={card.boardId}
                 backgroundColor={card.backgroundColor}
                 starred={card.starred}
               />
             );
           })}
+          {props.personal && (
+            <BoardCard empty={true} />
+          )}
         </BoardCardList>
       </div>
     </Container>
@@ -48,14 +50,17 @@ function BoardList(props) {
 
 BoardList.propTypes = {
   title: PropTypes.string.isRequired,
+  personal: PropTypes.bool,
   cards: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
+    boardId: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     starred: PropTypes.bool,
   })),
 };
 
 BoardList.defaultProps = {
+  personal: false,
   cards: [],
 };
 

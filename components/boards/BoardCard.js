@@ -1,6 +1,15 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+
+const showup = keyframes`
+  from {
+    right: -50px;
+  }
+  to {
+    right: 0px;
+  }
+`;
 
 const Card = styled.li`
   width: 23.5%;
@@ -8,22 +17,22 @@ const Card = styled.li`
   box-sizing: border-box;
   cursor: pointer;
 
+  & .card-details--empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    text-align: center;
+    color: #172b4d;
+  }
+
   & a {
+    overflow: hidden;
     position: relative;
     padding: 8px;
     display: block;
     border-radius: 3px;
-  }
-  & .card-fade {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 3px;
-  }
-  & .card-fade:hover {
-    background-color: rgba(0, 0, 0, 0.15);
   }
   & .card-details {
     display: flex;
@@ -47,6 +56,17 @@ const Card = styled.li`
     font-size: 12px;
     text-align: right;
   }
+  & .card-details__btn-favorite {
+    position: relative;
+  }
+  & .card-details__btn-favorite--over {
+    right: 0px;
+    animation-duration: 300ms;
+    animation-name: ${showup};
+  }
+  & .card-details__btn-favorite--out {
+    right: -50px;
+  }
 `;
 
 function BoardCard(props) {
@@ -59,21 +79,62 @@ function BoardCard(props) {
     setOver(false);
   }
 
+  const onClickBoardCard = e => {
+    e.preventDefault();
+    if (props.empty) {
+      if (typeof props.onClickCreate === 'function') {
+        props.onClickCreate();
+      }
+    } else {
+      // push to Board page
+      console.log('push');
+    }
+  };
+
+  const onClickFavorite = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('favorite');
+  };
+
   return (
-    <Card onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+    <Card>
       <a
+        href={`/b/${props.boardId}/${props.title}`}
         style={{
           backgroundColor: props.backgroundColor,
-        }}>
-        <div className="card-fade"></div>
-        <div className="card-details">
-          <div className="card-details__title">
-            {props.title}
+        }}
+        onClick={onClickBoardCard}
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
+      >
+        {props.empty
+        ? (
+          <div className="card-details--empty">
+            <p>
+              Create new board
+            </p>
           </div>
-          <div className="card-details__favorite">
-            {over ? '즐겨찾기 해제' : '즐겨찾기'}
+        )
+        : (
+          <div className="card-details">
+            <div className="card-details__title">
+              {props.title}
+            </div>
+            <div className="card-details__favorite">
+              <span
+                className={
+                  !props.starred
+                  ? `card-details__btn-favorite ${over ? 'card-details__btn-favorite--over' : 'card-details__btn-favorite--out'}`
+                  : ''
+                }
+                onClick={onClickFavorite}
+              >
+                {props.starred ? (over ? '즐겨찾기 해제' : '즐겨찾기') : '즐겨찾기'}
+              </span>
+            </div>
           </div>
-        </div>
+        )}
       </a>
     </Card>
   );
@@ -81,8 +142,15 @@ function BoardCard(props) {
 
 BoardCard.propTypes = {
   title: PropTypes.string,
+  boardId: PropTypes.string,
   backgroundColor: PropTypes.string,
   starred: PropTypes.bool,
+  empty: PropTypes.bool,
+};
+
+BoardCard.defaultProps = {
+  backgroundColor: 'rgba(9, 30, 66, 0.04)',
+  empty: false,
 };
 
 export default BoardCard;
