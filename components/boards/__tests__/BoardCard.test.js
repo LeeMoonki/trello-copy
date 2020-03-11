@@ -7,19 +7,19 @@ import BoardCard from '../BoardCard';
 describe('<BoardCard />', () => {
   let wrapper;
 
-  it('단위 테스트를 시험해봅니다.', () => {
-    const title = 'foo';
+  it('empty 속성값에 따라 보드 카드의 종류가 달라져야한다.', () => {
+    const props = {
+      title: 'foo',
+      boardId: 'bar',
+      backgroundColor: '#dedede',
+      starred: true
+    }
 
-    wrapper = shallow(
-      <BoardCard
-        title={title}
-        boardId={'bar'}
-        backgroundColor={'#dedede'}
-        starred={true}
-      />
-    );
+    const wrapper = shallow(<BoardCard {...props} />);
+    const wrapperEmpty = shallow(<BoardCard {...props} empty={true} />);
 
-    expect(wrapper.find('.card-details__title').text()).toBe(title);
+    expect(wrapper.find('.card-details__title').text()).toBe(props.title);
+    expect(wrapperEmpty.find('.card-details--empty').length).toBe(1);
   });
 });
 

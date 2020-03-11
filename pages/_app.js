@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import '../reset.css';
 import styled from 'styled-components';
 import Theme from '../theme';
 
 const Container = styled.div`
+  position: relative;
   overflow: hidden;
   height: 100vh;
 `;
@@ -80,12 +82,33 @@ const ProfileImg = styled.button`
   }
 `;
 
+const WindowCover = styled.div`
+  overflow: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .75);
+  z-index: 50;
+
+  &.window-cover--show {
+    display: flex;
+  }
+`;
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   function onClickHome(e) {
     e.preventDefault();
     // router.push('/'); // server의 '/' 경로를 타는게 아니라 pages에서 page(index.js)를 찾는다.
+  }
+
+  const [showWindowCover, setShowWindowCover] = useState(false);
+  function onClickWindowCover() {
+    setShowWindowCover(false);
   }
 
   return (
@@ -121,6 +144,12 @@ function MyApp({ Component, pageProps }) {
         <Content>
           <Component {...pageProps} />
         </Content>
+        <WindowCover
+          className={showWindowCover && 'window-cover--show'}
+          onClick={onClickWindowCover}
+        >
+          {/*  */}
+        </WindowCover>
       </Container>
     </Theme>
   );
