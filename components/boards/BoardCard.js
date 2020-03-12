@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { showWindowCover } from '../../reducers/app';
 
 const showup = keyframes`
   from {
@@ -70,6 +72,7 @@ const Card = styled.li`
 `;
 
 function BoardCard(props) {
+  const dispatch = useDispatch();
   const [over, setOver] = useState(false);
 
   function onMouseOver() {
@@ -82,9 +85,7 @@ function BoardCard(props) {
   const onClickBoardCard = e => {
     e.preventDefault();
     if (props.empty) {
-      if (typeof props.onClickCreate === 'function') {
-        props.onClickCreate();
-      }
+      dispatch(showWindowCover());
     } else {
       // push to Board page
       console.log('push');

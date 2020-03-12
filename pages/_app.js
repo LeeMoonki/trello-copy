@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import withRedux from 'next-redux-wrapper';
+import { createStore } from 'redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import reducer from '../reducers';
+import { hideWindowCover } from '../reducers/app';
 import '../reset.css';
 import styled from 'styled-components';
 import Theme from '../theme';
@@ -98,7 +103,25 @@ const WindowCover = styled.div`
   }
 `;
 
-function MyApp({ Component, pageProps }) {
+function WindowCoverComp() {
+  const dispatch = useDispatch();
+  const windowCover = useSelector(state => state.app.windowCover);
+
+  function onClickWindowCover() {
+    dispatch(hideWindowCover());
+  }
+
+  return (
+    <WindowCover
+      className={windowCover && 'window-cover--show'}
+      onClick={onClickWindowCover}
+    >
+      {/*  */}
+    </WindowCover>
+  );
+}
+
+function MyApp({ Component, pageProps, store }) {
   const router = useRouter();
 
   function onClickHome(e) {
@@ -106,12 +129,8 @@ function MyApp({ Component, pageProps }) {
     // router.push('/'); // server의 '/' 경로를 타는게 아니라 pages에서 page(index.js)를 찾는다.
   }
 
-  const [showWindowCover, setShowWindowCover] = useState(false);
-  function onClickWindowCover() {
-    setShowWindowCover(false);
-  }
-
   return (
+    <Provider store={store}>
     <Theme>
       <Container id="trello-container">
         <Header id="header">
@@ -144,17 +163,15 @@ function MyApp({ Component, pageProps }) {
         <Content>
           <Component {...pageProps} />
         </Content>
-        <WindowCover
-          className={showWindowCover && 'window-cover--show'}
-          onClick={onClickWindowCover}
-        >
-          {/*  */}
-        </WindowCover>
+        <WindowCoverComp></WindowCoverComp>
       </Container>
     </Theme>
+    </Provider>
   );
-  
-  
 }
 
-export default MyApp;
+const makeStore = (initialState, options) => {
+  return createStore(reducer, initialState);
+};
+
+export default withRedux(makeStore)(MyApp);
