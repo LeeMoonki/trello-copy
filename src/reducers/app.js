@@ -1,5 +1,5 @@
 const initialState = {
-  windowCover: false,
+  windowCover: true,
 };
 
 export const SHOW_WINDOW_COVER = 'SHOW_WINDOW_COVER';

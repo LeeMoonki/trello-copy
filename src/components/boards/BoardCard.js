@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { showWindowCover } from '../../reducers/app';
+import { showWindowCover } from 'Reducers/app';
 
 const showup = keyframes`
   from {

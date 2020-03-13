@@ -1,13 +1,14 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import withRedux from 'next-redux-wrapper';
 import { createStore } from 'redux';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import reducer from '../reducers';
-import { hideWindowCover } from '../reducers/app';
-import '../reset.css';
+import reducer from 'Reducers/index';
+import { hideWindowCover } from 'Reducers/app';
+import 'Style/reset.css';
+import Theme from 'Style/theme';
 import styled from 'styled-components';
-import Theme from '../theme';
+
+import CreateBoardWindow from 'Components/CreateBoardWindow';
 
 const Container = styled.div`
   position: relative;
@@ -93,6 +94,9 @@ const WindowCover = styled.div`
   left: 0;
   top: 0;
   display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, .75);
@@ -100,6 +104,11 @@ const WindowCover = styled.div`
 
   &.window-cover--show {
     display: flex;
+  }
+  & > .window-cover__inner {
+    margin-top: 24px;
+    padding: 24px;
+    width: auto;
   }
 `;
 
@@ -116,7 +125,9 @@ function WindowCoverComp() {
       className={windowCover && 'window-cover--show'}
       onClick={onClickWindowCover}
     >
-      {/*  */}
+      <div className="window-cover__inner">
+        <CreateBoardWindow />
+      </div>
     </WindowCover>
   );
 }

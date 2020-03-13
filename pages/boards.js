@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styled from 'styled-components';
-import BoardList from '../components/boards/BoardList';
+import BoardList from 'Components/boards/BoardList';
 
 const Container = styled.div`
   position: relative;
