@@ -116,7 +116,7 @@ function WindowCoverComp() {
   const dispatch = useDispatch();
   const windowCover = useSelector(state => state.app.windowCover);
 
-  function onClickWindowCover() {
+  function onClickWindowCover(e) {
     dispatch(hideWindowCover());
   }
 
@@ -125,7 +125,7 @@ function WindowCoverComp() {
       className={windowCover && 'window-cover--show'}
       onClick={onClickWindowCover}
     >
-      <div className="window-cover__inner">
+      <div className="window-cover__inner" onClick={e => e.stopPropagation()}>
         <CreateBoardWindow />
       </div>
     </WindowCover>
