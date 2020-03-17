@@ -126,7 +126,12 @@ function WindowCoverComp() {
       onClick={onClickWindowCover}
     >
       <div className="window-cover__inner" onClick={e => e.stopPropagation()}>
-        <CreateBoardWindow />
+        {windowCover && (
+          <CreateBoardWindow
+            onClickCreateBoard={() => {}}
+            onClickClose={onClickWindowCover}
+          />
+        )}
       </div>
     </WindowCover>
   );
