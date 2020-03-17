@@ -36,4 +36,11 @@ module.exports = {
   
   // Whether to use watchman for file crawling
   // watchman: true,
+
+  moduleNameMapper: {
+    '^@(.*)%': '<rootDir>/src$1',
+    '^Components(.*)%': '<rootDir>/src/components$1',
+    '^Reducers(.*)$': '<rootDir>/src/reducers$1',
+    '^Style(.*)%': '<rootDir>/src/style$1',
+  },
 };

@@ -8,6 +8,10 @@ jest.mock('react-redux', () => ({
   useDispatch: () => mockDispatch,
 }));
 
+jest.mock('Reducers/app', () => ({
+  showWindowCover: jest.fn()
+}));
+
 describe('<BoardCard />', () => {
   let wrapper;
   let wrapperEmpty;

@@ -11,8 +11,9 @@ url : trello.com/**login**
 # Boards
 url : trello.com/**[name]**/**boards**
 
-* 즐겨찾기 설정한 보드 리스트 (Starred Boards)
+* (done) 즐겨찾기 설정한 보드 리스트 (Starred Boards)
 * 개인 보드 리스트 (Personal Boards)
+  * (done) 리스트
   * 보드 생성
 * 팀 보드 리스트 ([Team name])
   * 보드 생성
