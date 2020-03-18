@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 import BoardList from 'Components/boards/BoardList';
+import { getBoardList } from 'Api/boards';
 
 const Container = styled.div`
   position: relative;
@@ -53,53 +55,67 @@ const BoardsWrapper = styled.div`
 `;
 
 function Boards({ name }) {
+  const [boards, setBoards] = useState([]);
+  useEffect(() => {
+    getBoardList().then(res => {
+      console.log('res : ', res);
+      if (res.success) {
+        setBoards([
+          ...boards,
+          ...res.data,
+        ]);
+      } else {
+        // handle fail
+      }
+    });
+  }, []);
+
   return (
     <>
       <Head>
         <title>boards</title>
       </Head>
       <Container>
-        <SideNavigation>
-          <Nav>
-            <ConstantNav>
-              <li>
-                <a className="nav__link--selected">
-                  <span></span>
-                  <span>Boards</span>
-                </a>
-              </li>
-              <li>
-                <a className="nav__link">
-                  <span></span>
-                  <span>Templates</span>
-                </a>
-              </li>
-              <li>
-                <a className="nav__link">
-                  <span></span>
-                  <span>Home</span>
-                </a>
-              </li>
-            </ConstantNav>
-            <TeamNavWrapper></TeamNavWrapper>
-          </Nav>
-        </SideNavigation>
-        <BoardsWrapper>
-          <BoardList
-            title="Starred Boards"
-            cards={[
-              { title: 'TodoBoard', boardId: 'si12F1AH', backgroundColor: '#0079bf', starred: true },
-            ]}
-          />
-          <BoardList
-            title="Personal Boards"
-            personal={true}
-            cards={[
-              { title: 'TodoBoard', boardId: 'si12F1AH', backgroundColor: '#0079bf', starred: true },
-              { title: 'Project1', boardId: 'B2ji98pu', backgroundColor: '#d29034', starred: false },
-            ]}
-          />
-        </BoardsWrapper>
+        {boards.length > 0 && (
+          <>
+            <SideNavigation>
+              <Nav>
+                <ConstantNav>
+                  <li>
+                    <a className="nav__link--selected">
+                      <span></span>
+                      <span>Boards</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a className="nav__link">
+                      <span></span>
+                      <span>Templates</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a className="nav__link">
+                      <span></span>
+                      <span>Home</span>
+                    </a>
+                  </li>
+                </ConstantNav>
+                <TeamNavWrapper></TeamNavWrapper>
+              </Nav>
+            </SideNavigation>
+            <BoardsWrapper>
+              <BoardList
+                title="Starred Boards"
+                cards={boards.filter(b => b.starred)}
+              />
+              <BoardList
+                title="Personal Boards"
+                personal={true}
+                cards={boards}
+              />
+            </BoardsWrapper>
+          </>
+        )}
       </Container>
     </>
   );

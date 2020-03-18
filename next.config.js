@@ -5,10 +5,11 @@ module.exports = {
     config.resolve.alias = {
       ...config.resolve.alias,
       ...{
-        '@': path.resolve(__dirname, 'src'),
+        'Src': path.resolve(__dirname, 'src'),
         'Components': path.resolve(__dirname, 'src/components'),
         'Reducers': path.resolve(__dirname, 'src/reducers'),
         'Style': path.resolve(__dirname, 'src/style'),
+        'Api': path.resolve(__dirname, 'src/api'),
       },
     };
 
