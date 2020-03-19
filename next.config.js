@@ -10,6 +10,7 @@ module.exports = {
         'Reducers': path.resolve(__dirname, 'src/reducers'),
         'Style': path.resolve(__dirname, 'src/style'),
         'Api': path.resolve(__dirname, 'src/api'),
+        'Js': path.resolve(__dirname, 'src/js'),
       },
     };
 

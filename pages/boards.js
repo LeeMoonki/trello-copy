@@ -58,7 +58,6 @@ function Boards({ name }) {
   const [boards, setBoards] = useState([]);
   useEffect(() => {
     getBoardList().then(res => {
-      console.log('res : ', res);
       if (res.success) {
         setBoards([
           ...boards,
