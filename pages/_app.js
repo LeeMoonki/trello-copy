@@ -7,6 +7,7 @@ import { hideWindowCover } from 'Reducers/app';
 import 'Style/reset.css';
 import Theme from 'Style/theme';
 import styled from 'styled-components';
+import { createBoard } from 'Api/boards';
 
 import CreateBoardWindow from 'Components/CreateBoardWindow';
 
@@ -120,6 +121,13 @@ function WindowCoverComp() {
     dispatch(hideWindowCover());
   }
 
+  function onClickCreateBoard({ title, backgroundColor }) {
+    createBoard({ title, backgroundColor }).then(res => {
+      // create board
+      // 성공 여부에 따라 리스트를 다시 그려야 한다.
+    });
+  }
+
   return (
     <WindowCover
       className={windowCover && 'window-cover--show'}
@@ -128,7 +136,7 @@ function WindowCoverComp() {
       <div className="window-cover__inner" onClick={e => e.stopPropagation()}>
         {windowCover && (
           <CreateBoardWindow
-            onClickCreateBoard={() => {}}
+            onClickCreateBoard={onClickCreateBoard}
             onClickClose={onClickWindowCover}
           />
         )}
