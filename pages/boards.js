@@ -75,6 +75,7 @@ function Boards({ name }) {
         <title>boards</title>
       </Head>
       <Container>
+        {/* 보드가 로드되고 나서 페이지를 보여준다. 보드가 없는 상태도 보여줄 수 있어야 한다. */}
         {boards.length > 0 && (
           <>
             <SideNavigation>
