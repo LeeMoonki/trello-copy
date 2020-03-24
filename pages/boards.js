@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { setBoardList } from 'Reducers/board';
 import BoardList from 'Components/boards/BoardList';
 import { getBoardList } from 'Api/boards';
 
@@ -55,14 +57,15 @@ const BoardsWrapper = styled.div`
 `;
 
 function Boards({ name }) {
-  const [boards, setBoards] = useState([]);
+  const dispatch = useDispatch();
+
+  const [firstLoadingEnd, setFirstLoadingEnd] = useState(false);
+  const boards = useSelector(state => state.board.list);
   useEffect(() => {
     getBoardList().then(res => {
+      setFirstLoadingEnd(true);
       if (res.success) {
-        setBoards([
-          ...boards,
-          ...res.data,
-        ]);
+        dispatch(setBoardList(res.data));
       } else {
         // handle fail
       }
@@ -76,34 +79,36 @@ function Boards({ name }) {
       </Head>
       <Container>
         {/* 보드가 로드되고 나서 페이지를 보여준다. 보드가 없는 상태도 보여줄 수 있어야 한다. */}
-        {boards.length > 0 && (
-          <>
-            <SideNavigation>
-              <Nav>
-                <ConstantNav>
-                  <li>
-                    <a className="nav__link--selected">
-                      <span></span>
-                      <span>Boards</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="nav__link">
-                      <span></span>
-                      <span>Templates</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="nav__link">
-                      <span></span>
-                      <span>Home</span>
-                    </a>
-                  </li>
-                </ConstantNav>
-                <TeamNavWrapper></TeamNavWrapper>
-              </Nav>
-            </SideNavigation>
-            <BoardsWrapper>
+        {firstLoadingEnd && (
+          <SideNavigation>
+            <Nav>
+              <ConstantNav>
+                <li>
+                  <a className="nav__link--selected">
+                    <span></span>
+                    <span>Boards</span>
+                  </a>
+                </li>
+                <li>
+                  <a className="nav__link">
+                    <span></span>
+                    <span>Templates</span>
+                  </a>
+                </li>
+                <li>
+                  <a className="nav__link">
+                    <span></span>
+                    <span>Home</span>
+                  </a>
+                </li>
+              </ConstantNav>
+              <TeamNavWrapper></TeamNavWrapper>
+            </Nav>
+          </SideNavigation>
+        )}
+        <BoardsWrapper>
+          {(firstLoadingEnd && boards.length > 0) && (
+            <>
               <BoardList
                 title="Starred Boards"
                 cards={boards.filter(b => b.starred)}
@@ -113,9 +118,9 @@ function Boards({ name }) {
                 personal={true}
                 cards={boards}
               />
-            </BoardsWrapper>
-          </>
-        )}
+            </>
+          )}
+        </BoardsWrapper>
       </Container>
     </>
   );

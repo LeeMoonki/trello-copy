@@ -4,6 +4,7 @@ import { createStore } from 'redux';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import reducer from 'Reducers/index';
 import { hideWindowCover } from 'Reducers/app';
+import { appendBoard } from 'Reducers/board';
 import 'Style/reset.css';
 import Theme from 'Style/theme';
 import styled from 'styled-components';
@@ -123,9 +124,11 @@ function WindowCoverComp() {
 
   function onClickCreateBoard({ title, backgroundColor }) {
     createBoard({ title, backgroundColor }).then(res => {
-      // create board
-      // 성공 여부에 따라 리스트를 다시 그려야 한다.
+      if (res.success) {
+        dispatch(appendBoard(res.data));
+      }
     });
+
   }
 
   return (

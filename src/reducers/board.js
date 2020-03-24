@@ -23,14 +23,9 @@ const reducer = (state = initialState, action) => {
         list: action.list
       };
     case APPEND_BOARD:
-      const tempList = state.list.slice();
-
-      // need to validation board
-      tempList.push(action.board);
-
       return {
         ...state,
-        list: tempList
+        list: [...state.list, action.board],
       };
     default:
       return state;

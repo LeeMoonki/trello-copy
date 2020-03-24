@@ -14,18 +14,20 @@ export const createBoard = ({
   backgroundColor
 }) => {
   return new Promise(resolve => {
-    setTimeout(() => {
-      if (!title || !backgroundColor) {
-        resolve(resformat(
-          false, {
-           message: `The value ${!title ? '"title"' : '"background"'} is required.`
-          })
-        );
-      } else {
-        const result = db.create(title, backgroundColor);
+    // setTimeout(() => {
+    //   if (!title || !backgroundColor) {
+    //     resolve(resformat(
+    //       false, {
+    //        message: `The value ${!title ? '"title"' : '"background"'} is required.`
+    //       })
+    //     );
+    //   } else {
+        
+    //   }
+    // }, 100);
 
-        resolve(resformat(!!result));
-      }
-    }, 100);
+    const result = db.create(title, backgroundColor);
+
+    resolve(resformat(!!result, result));
   });
 };

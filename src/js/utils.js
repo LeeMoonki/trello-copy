@@ -9,7 +9,7 @@ export const makeId = length => {
   let result = '';
 
   for (let i = 0; i < length; i++) {
-    result += characters[(~~Math.random() * len)];
+    result += characters[~~(Math.random() * len)];
   }
 
   return result;

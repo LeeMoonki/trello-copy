@@ -18,6 +18,6 @@ export default {
       starred: false
     });
 
-    return true;
+    return list[list.length - 1];
   },
 };

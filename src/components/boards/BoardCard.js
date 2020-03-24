@@ -14,7 +14,7 @@ const showup = keyframes`
 `;
 
 const Card = styled.li`
-  width: 23.5%;
+  width: 23%;
   margin: 0 2% 2% 0;
   box-sizing: border-box;
   cursor: pointer;
