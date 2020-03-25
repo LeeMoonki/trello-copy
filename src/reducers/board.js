@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
     case SET_BOARD_LIST:
       return {
         ...state,
-        list: action.list
+        list: action.list.slice()
       };
     case APPEND_BOARD:
       return {
