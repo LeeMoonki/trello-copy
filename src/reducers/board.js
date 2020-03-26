@@ -1,9 +1,11 @@
-const initialState = {
+import { produce } from 'immer';
+
+export const initialState = {
   list: [],
 };
 
-export const SET_BOARD_LIST = 'SET_BOARD_LIST';
-export const APPEND_BOARD = 'APPEND_BOARD';
+const SET_BOARD_LIST = 'SET_BOARD_LIST';
+const APPEND_BOARD = 'APPEND_BOARD';
 
 export const setBoardList = list => ({
   type: SET_BOARD_LIST,
@@ -15,21 +17,16 @@ export const appendBoard = board => ({
   board
 });
 
-const reducer = (state = initialState, action) => {
+const reducer = produce((draftState, action) => {
   switch (action.type) {
     case SET_BOARD_LIST:
       return {
-        ...state,
+        ...draftState,
         list: action.list.slice()
       };
     case APPEND_BOARD:
-      return {
-        ...state,
-        list: [...state.list, action.board],
-      };
-    default:
-      return state;
+      draftState.list.push(action.board);
   }
-};
+});
 
 export default reducer;

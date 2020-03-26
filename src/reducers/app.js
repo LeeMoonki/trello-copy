@@ -1,9 +1,11 @@
-const initialState = {
+import { produce } from 'immer';
+
+export const initialState = {
   windowCover: false,
 };
 
-export const SHOW_WINDOW_COVER = 'SHOW_WINDOW_COVER';
-export const HIDE_WINDOW_COVER = 'HIDE_WINDOW_COVER';
+const SHOW_WINDOW_COVER = 'SHOW_WINDOW_COVER';
+const HIDE_WINDOW_COVER = 'HIDE_WINDOW_COVER';
 
 export const showWindowCover = () => ({
   type: SHOW_WINDOW_COVER,
@@ -15,21 +17,12 @@ export const hideWindowCover = () => ({
   windowCover: false
 });
 
-const reducer = (state = initialState, action) => {
+const reducer = produce((draftState, action) => {
   switch (action.type) {
     case SHOW_WINDOW_COVER:
-      return {
-        ...state,
-        windowCover: action.windowCover
-      };
     case HIDE_WINDOW_COVER:
-      return {
-        ...state,
-        windowCover: action.windowCover
-      };
-    default:
-      return state;
+      draftState.windowCover = action.windowCover;
   }
-};
+});
 
 export default reducer;
