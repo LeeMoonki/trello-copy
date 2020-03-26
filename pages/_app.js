@@ -126,6 +126,7 @@ function WindowCoverComp() {
     createBoard({ title, backgroundColor }).then(res => {
       if (res.success) {
         dispatch(appendBoard(res.data));
+        dispatch(hideWindowCover());
       }
     });
 
