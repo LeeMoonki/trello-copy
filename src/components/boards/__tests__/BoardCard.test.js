@@ -15,20 +15,20 @@ jest.mock('Reducers/app', () => ({
 describe('<BoardCard />', () => {
   let wrapper;
   let wrapperEmpty;
-  const starredProps = {
+  const favoriteProps = {
     title: 'foo',
     boardId: 'bar',
     backgroundColor: '#dedede',
-    starred: true
+    favorite: true
   }
 
   beforeEach(() => {
-    wrapper = mount(<BoardCard {...starredProps} />);
-    wrapperEmpty = mount(<BoardCard {...starredProps} empty={true} />);
+    wrapper = mount(<BoardCard {...favoriteProps} />);
+    wrapperEmpty = mount(<BoardCard {...favoriteProps} empty={true} />);
   });
 
   it('empty 속성값에 따라 보드 카드의 종류가 달라져야한다.', async () => {
-    expect(wrapper.find('.card-details__title').text()).toBe(starredProps.title);
+    expect(wrapper.find('.card-details__title').text()).toBe(favoriteProps.title);
     expect(wrapperEmpty.find('.card-details--empty').length).toBe(1);
   });
 

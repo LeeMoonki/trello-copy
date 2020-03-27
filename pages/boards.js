@@ -111,7 +111,7 @@ function Boards({ name }) {
             <>
               <BoardList
                 title="Starred Boards"
-                cards={boards.filter(b => b.starred)}
+                cards={boards.filter(b => b.favorite)}
               />
               <BoardList
                 title="Personal Boards"

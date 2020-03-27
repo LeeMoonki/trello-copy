@@ -1,10 +1,10 @@
-import 
-  reducer,
-  {
-    initialState,
-    setBoardList,
-    appendBoard
-  }
+import { produce } from 'immer';
+import reducer, {
+  initialState,
+  setBoardList,
+  appendBoard,
+  toggleFavorite,
+}
 from '../board';
 
 describe('board reducer를 테스트합니다.', () => {
@@ -32,5 +32,19 @@ describe('board reducer를 테스트합니다.', () => {
 
     expect(oldState).toEqual(initialState)
     expect(newState).toEqual({ list: [{ id: 20 }] });
+  });
+
+  it('toggleFavorite action을 테스트합니다.', () => {
+    const state = produce(initialState, draft => {
+      draft.list.push({ id: 10, boardId: 'foo', favorite: false });
+    });
+    const actionWithId = toggleFavorite({ id: 10 });
+    const actionWithBoardId = toggleFavorite({ boardId: 'foo' });
+
+    const newStateWithId = reducer(state, actionWithId);
+    const newStateWithBoardId = reducer(state, actionWithBoardId);
+
+    expect(newStateWithId.list[0].favorite).toBe(true);
+    expect(newStateWithBoardId.list[0].favorite).toBe(true);
   });
 });

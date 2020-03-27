@@ -25,25 +25,29 @@ const BoardCardList = styled.ul`
 function BoardList(props) {
   return (
     <Container>
-      <Header><h3>{props.title}</h3></Header>
-      <div>
-        <BoardCardList>
-          {props.cards.map((card, index) => {
-            return (
-              <BoardCard
-                key={index}
-                title={card.title}
-                boardId={card.boardId}
-                backgroundColor={card.backgroundColor}
-                starred={card.starred}
-              />
-            );
-          })}
-          {props.personal && (
-            <BoardCard empty={true} />
-          )}
-        </BoardCardList>
-      </div>
+      {props.cards.length > 0 && (
+        <>
+          <Header><h3>{props.title}</h3></Header>
+          <div>
+            <BoardCardList>
+              {props.cards.map((card, index) => {
+                return (
+                  <BoardCard
+                    key={index}
+                    title={card.title}
+                    boardId={card.boardId}
+                    backgroundColor={card.backgroundColor}
+                    favorite={card.favorite}
+                  />
+                );
+              })}
+              {props.personal && (
+                <BoardCard empty={true} />
+              )}
+            </BoardCardList>
+          </div>
+        </>
+      )}
     </Container>
   );
 }
@@ -55,7 +59,7 @@ BoardList.propTypes = {
     title: PropTypes.string.isRequired,
     boardId: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
-    starred: PropTypes.bool,
+    favorite: PropTypes.bool,
   })),
 };
 

@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { showWindowCover } from 'Reducers/app';
+import { toggleFavorite } from 'Reducers/board';
 
 const showup = keyframes`
   from {
@@ -82,7 +83,7 @@ function BoardCard(props) {
     setOver(false);
   }
 
-  const onClickBoardCard = e => {
+  const onClickCard = e => {
     e.preventDefault();
     if (props.empty) {
       dispatch(showWindowCover());
@@ -95,6 +96,8 @@ function BoardCard(props) {
   const onClickFavorite = e => {
     e.preventDefault();
     e.stopPropagation();
+
+    dispatch(toggleFavorite({ boardId: props.boardId }));
     console.log('favorite');
   };
 
@@ -105,7 +108,7 @@ function BoardCard(props) {
         style={{
           backgroundColor: props.backgroundColor,
         }}
-        onClick={onClickBoardCard}
+        onClick={onClickCard}
         onMouseOver={onMouseOver}
         onMouseOut={onMouseOut}
       >
@@ -125,13 +128,13 @@ function BoardCard(props) {
             <div className="card-details__favorite">
               <span
                 className={
-                  !props.starred
+                  !props.favorite
                   ? `card-details__btn-favorite ${over ? 'card-details__btn-favorite--over' : 'card-details__btn-favorite--out'}`
                   : ''
                 }
                 onClick={onClickFavorite}
               >
-                {props.starred ? (over ? '즐겨찾기 해제' : '즐겨찾기') : '즐겨찾기'}
+                {props.favorite ? (over ? '즐겨찾기 해제' : '즐겨찾기') : '즐겨찾기'}
               </span>
             </div>
           </div>
@@ -143,9 +146,13 @@ function BoardCard(props) {
 
 BoardCard.propTypes = {
   title: PropTypes.string,
-  boardId: PropTypes.string,
+  boardId: (props, propName, componentName) => {
+    if (!props.empty && (typeof props[propName] !== 'string' || !props[propName].trim())) {
+      return new Error(`Warning: Failed prop type: The prop '${propName}' is marked as required in '${componentName}', but its value is '${props[propName]}'`);
+    }
+  },
   backgroundColor: PropTypes.string,
-  starred: PropTypes.bool,
+  favorite: PropTypes.bool,
   empty: PropTypes.bool,
 };
 

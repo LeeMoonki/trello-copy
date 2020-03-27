@@ -6,6 +6,7 @@ export const initialState = {
 
 const SET_BOARD_LIST = 'SET_BOARD_LIST';
 const APPEND_BOARD = 'APPEND_BOARD';
+const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 
 export const setBoardList = list => ({
   type: SET_BOARD_LIST,
@@ -15,6 +16,12 @@ export const setBoardList = list => ({
 export const appendBoard = board => ({
   type: APPEND_BOARD,
   board
+});
+
+export const toggleFavorite = ({ id, boardId }) => ({
+  type: TOGGLE_FAVORITE,
+  id,
+  boardId
 });
 
 const reducer = (state = initialState, action) => {
@@ -29,6 +36,20 @@ const reducer = (state = initialState, action) => {
     case APPEND_BOARD:
       return produce(state, draft => {
         draft.list.push(action.board);
+      });
+    case TOGGLE_FAVORITE:
+      return produce(state, draft => {
+        const index = draft.list.findIndex(b => {
+          if (action.id != null) {
+            return b.id === action.id;
+          } else if (action.boardId != null) {
+            return b.boardId === action.boardId;
+          }
+        });
+
+        if (index > -1) {
+          draft.list[index].favorite = !draft.list[index].favorite;
+        }
       });
     default:
       return state;
