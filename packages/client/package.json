@@ -1,0 +1,38 @@
+{
+  "name": "trello-copy",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev-next": "next",
+    "build-next": "next build",
+    "start-next": "next start",
+    "production": "rm -rf .next && next build && next start",
+    "start": "node server.js",
+    "start-production": "rm -rf .next && next build && NODE_ENV=production node server.js",
+    "export": "rm -rf .next && rm -rf out && next build && next export",
+    "export-production": "yarn run export && NODE_ENV=production node server.js",
+    "test": "jest --watch"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "file-loader": "^5.1.0",
+    "immer": "^6.0.2",
+    "next": "^9.2.2",
+    "next-redux-wrapper": "^5.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "styled-components": "^5.0.1"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.7",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest": "^25.1.0",
+    "jest-enzyme": "^7.1.2",
+    "redux-mock-store": "^1.5.4"
+  }
+}
