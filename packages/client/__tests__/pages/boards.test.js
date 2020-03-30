@@ -5,6 +5,7 @@ import { initialState as boardState } from 'Reducers/board';
 import { initialState as appState } from 'Reducers/app';
 import { getBoardList } from 'Api/boards';
 import BoardPage from '../../pages/boards';
+import Theme from 'Style/theme';
 
 const mockStore = configureStore([]); // [] : no middlewares
 
@@ -40,7 +41,9 @@ describe('보드리스트 페이지', () => {
     await act(async () => {
       wrapper = await mount(
         <Provider store={store}>
-          <BoardPage />
+          <Theme>
+            <BoardPage />
+          </Theme>
         </Provider>
       );
     });
