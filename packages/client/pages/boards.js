@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBoardList } from 'Reducers/board';
 import BoardList from 'Components/boards/BoardList';
 import { getBoardList } from 'Api/boards';
+import Layout from 'Components/MainLayout';
 
 const Container = styled.div`
   position: relative;
@@ -73,10 +73,7 @@ function Boards({ name }) {
   }, []);
 
   return (
-    <>
-      <Head>
-        <title>boards</title>
-      </Head>
+    <Layout>
       <Container>
         {/* 보드가 로드되고 나서 페이지를 보여준다. 보드가 없는 상태도 보여줄 수 있어야 한다. */}
         {firstLoadingEnd && (
@@ -122,7 +119,7 @@ function Boards({ name }) {
           )}
         </BoardsWrapper>
       </Container>
-    </>
+    </Layout>
   );
 }
 
