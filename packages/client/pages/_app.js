@@ -55,6 +55,8 @@ function WindowCoverComp() {
       if (res.success) {
         dispatch(appendBoard(res.data));
         dispatch(hideWindowCover());
+      } else {
+        console.warn('Fail to create board', res);
       }
     });
   }

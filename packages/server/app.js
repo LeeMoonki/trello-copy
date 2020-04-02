@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const authMiddleware = require('./middlewares/auth');
 const boardsRouter = require('./routes/boards');
 const authRouter = require('./routes/auth');
 
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('jwt-secret', config.secret);
 
+// app.use('/boards', authMiddleware);
 app.use('/boards', boardsRouter);
 app.use('/auth', authRouter);
 

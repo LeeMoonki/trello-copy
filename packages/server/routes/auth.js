@@ -2,17 +2,18 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const db = require('../db/users');
+const { resformat }  = require('../js/utils');
 
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
   const secret = req.app.get('jwt-secret');
   let user = {};
-
+  
   const pr = new Promise((resolve, reject) => {
     if (user = db.get(email)) {
       if (db.chkpwd(user.id, password)) {
         jwt.sign(
-          { id: user.id, email: user.email },
+          { id: user.id, email: user.email, name: user.name },
           secret,
           { expiresIn: '30d', issuer: 'trellocopy' },
           (err, token) => {
@@ -32,16 +33,11 @@ router.post('/login', (req, res) => {
 
   pr
     .then(token => {
-      res.json({
-        success: true,
-        token
-      });
+      console.log(resformat(true, { data: token }));
+      res.json(resformat(true, { data: token }));
     })
     .catch(err => {
-      res.status(403).json({
-        success: false,
-        message: err.message
-      });
+      res.status(403).json(resformat(false, { error: err.message }));
     });
 });
 

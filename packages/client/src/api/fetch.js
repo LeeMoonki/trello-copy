@@ -5,13 +5,6 @@ const get = (url, options) => {
     .then(res => {
       return res.json();
     })
-    .catch(err => {
-      return Promise.reject({
-        redirectPath: '/error',
-        message: err.message,
-        error: err
-      });
-    });
 };
 
 const post = (url, options) => {
@@ -26,13 +19,6 @@ const post = (url, options) => {
     .then(res => {
       return res.json();
     })
-    .catch(err => {
-      return Promise.reject({
-        redirectPath: '/error',
-        message: err.message,
-        error: err
-      });
-    });
 };
 
 export default {

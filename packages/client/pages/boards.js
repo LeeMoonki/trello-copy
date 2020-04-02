@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBoardList } from 'Reducers/board';
+import Router from 'next/router';
 import BoardList from 'Components/boards/BoardList';
 import { getBoardList } from 'Api/boards';
 import Layout from 'Components/MainLayout';
@@ -65,9 +66,9 @@ function Boards({ name }) {
     getBoardList().then(res => {
       setFirstLoadingEnd(true);
       if (res.success) {
-        dispatch(setBoardList(res.data));
+        dispatch(setBoardList(res.data.list));
       } else {
-        // handle fail
+        Router.push('/error');
       }
     });
   }, []);

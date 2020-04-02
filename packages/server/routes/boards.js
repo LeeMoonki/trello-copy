@@ -1,19 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/boards');
+const { resformat } = require('../js/utils');
 
 router.get('/', function(req, res) {
-  console.log('get in');
-  res.json({
-    list: db.get(),
+  const data = resformat(true, {
+    data: {
+      list: db.get(),
+    }
   });
+
+  res.json(data);
 });
 
 router.post('/', function(req, res) {
   const { title, backgroundColor } = req.body;
   const createdBoard = db.create(title, backgroundColor);
 
-  res.json(createdBoard);
+  res.json(resformat(true, { data: createdBoard }));
 });
 
 module.exports = router;
