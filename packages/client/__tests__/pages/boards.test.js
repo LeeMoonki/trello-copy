@@ -13,7 +13,8 @@ jest.mock('Api/boards', () => ({
   getBoardList: jest.fn(() => {
     return new Promise(resolve => {
       resolve({
-        success: true
+        success: true,
+        data: {}
       });
     });
   }),

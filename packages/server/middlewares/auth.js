@@ -7,7 +7,7 @@ const authMiddleware = (req, res, next) => {
   const secret = req.app.get('jwt-secret');
   
   if (!token) {
-    res.status(403).json(resformat(false, { error: 'token is missing' }));
+    res.status(403).json(resformat(false, { code: 403, message: 'token is missing' }));
     return;
   }
 
@@ -27,7 +27,7 @@ const authMiddleware = (req, res, next) => {
       next();
     })
     .catch(err => {
-      res.status(403).json(resformat(false, { error: err.message }))
+      res.status(403).json(resformat(false, { code: 403, message: err.message }))
     });
 };
 

@@ -96,6 +96,16 @@ function MyApp({ Component, pageProps, store }) {
   );
 }
 
+MyApp.getInitialProps = async ({ Component, ctx }) => {
+  let pageProps = {};
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  return { pageProps };
+};
+
 const makeStore = (initialState, options) => {
   return createStore(reducer, initialState);
 };

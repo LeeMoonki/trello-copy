@@ -15,18 +15,12 @@ const makeId = length => {
   return result;
 };
 
-const resformat = (success, { data, error }) => {
-  if (success) {
-    return {
-      success,
-      data,
-    };
-  } else {
-    return {
-      success,
-      error
-    };
-  }
+const resformat = (success, data) => {
+  const response = { success };
+
+  response[success ? 'data' : 'error'] = data;
+  
+  return response;
 };
 
 module.exports = {

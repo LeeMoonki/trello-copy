@@ -57,7 +57,7 @@ const BoardsWrapper = styled.div`
   max-width: 825px;
 `;
 
-function Boards({ name }) {
+function Boards({ name, statusCode }) {
   const dispatch = useDispatch();
 
   const [firstLoadingEnd, setFirstLoadingEnd] = useState(false);
@@ -68,7 +68,8 @@ function Boards({ name }) {
       if (res.success) {
         dispatch(setBoardList(res.data.list));
       } else {
-        Router.push('/error');
+        // API 서버의 에러코드와 SSR의 에러코드는 다르기 때문에 다음과 같이 조치한다.
+        Router.push(`/error?code=${res.error && res.error.code}`, '/error', { getInitialProps: true });
       }
     });
   }, []);
@@ -124,8 +125,10 @@ function Boards({ name }) {
   );
 }
 
-Boards.getInitialProps = async ctx => {
+Boards.getInitialProps = ctx => {
+  // context의 객체, 배열 등 참조값들을 참조하여 사용하면 circular structure 에러 발생
   return {
+    statusCode: ctx.res.statusCode,
     name: ctx.req.params && ctx.req.params.id
   };
 };

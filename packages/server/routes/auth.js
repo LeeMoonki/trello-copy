@@ -33,11 +33,10 @@ router.post('/login', (req, res) => {
 
   pr
     .then(token => {
-      console.log(resformat(true, { data: token }));
-      res.json(resformat(true, { data: token }));
+      res.json(resformat(true, token));
     })
     .catch(err => {
-      res.status(403).json(resformat(false, { error: err.message }));
+      res.status(403).json(resformat(false, { code: 403, message: err.message }));
     });
 });
 
