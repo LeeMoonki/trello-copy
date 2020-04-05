@@ -20,7 +20,7 @@ router.post('/login', (req, res) => {
             if (err) {
               reject(err);
             }
-            resolve(token);
+            resolve({ token, name: user.name });
           },
         );
       } else {
@@ -32,8 +32,8 @@ router.post('/login', (req, res) => {
   });
 
   pr
-    .then(token => {
-      res.json(resformat(true, token));
+    .then(info => {
+      res.json(resformat(true, info));
     })
     .catch(err => {
       res.status(403).json(resformat(false, { code: 403, message: err.message }));

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Content = styled.main`
-  overflow-y: auto;
+  overflow: hidden;
   height: 100%;
 `;
 

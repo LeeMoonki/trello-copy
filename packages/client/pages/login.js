@@ -1,8 +1,12 @@
 import Head from 'next/head';
+import { useState } from 'react';
+import Router from 'next/router';
 import styled from 'styled-components';
 import Layout from 'Components/NoHeaderLayout';
+import { login } from 'Api/auth';
 
 const Container = styled.div`
+  overflow-y: auto;
   width: 100%;
   height: 100%;
   background-color: #f8f8f8;
@@ -24,6 +28,7 @@ const Header = styled.div`
 const LoginCardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding-bottom: 50px;
 `;
 
 const LoginCard = styled.div`
@@ -55,7 +60,22 @@ const Input = styled.input`
   }
 `;
 
+const Message = styled.div`
+  overflow: hidden;
+  margin-bottom: 12px;
+  width: 100%;
+
+  & > span {
+    display: inline-block;
+    padding: 7px 10px;
+    background-color: #fa325a;
+    color: #fff;
+    border-radius: 3px;
+  }
+`;
+
 const BtnLogin = styled.button`
+  margin-top: 10px;
   width: 100%;
   height: 30px;
   background-color: #5aac44;
@@ -70,8 +90,45 @@ const BtnLogin = styled.button`
 `;
 
 function Login() {
+  const [email, setEmail] = useState('test@trellocopy.com');
+  const [password, setPassword] = useState('test1234');
+  const [message, setMessage] = useState('');
+
+  const onEnterEmail = e => {
+    if (e.keyCode === 13) {
+      if (email && !password) {
+        const pwdEle = document.querySelector('input[name="password"]');
+
+        pwdEle.focus();
+      }
+    }
+  };
+
+  const onEnterPassword = e => {
+    if (e.keyCode === 13) {
+      if (password && !email) {
+        const emailEle = document.querySelector('input[name="email"]');
+
+        emailEle.focus();
+      }
+    }
+  };
+
   const onSubmit = e => {
     e.preventDefault();
+
+    if (email && password) {
+      login({ email, password })
+        .then(res => {
+          if (res.success) {
+            const url = `/${res.data.name}/boards`;
+
+            Router.push(url, url, { getInitialProps: true });
+          } else {
+            setMessage('Incorrect email address and / or password.');
+          }
+        });
+    }
   };
 
   return (
@@ -86,21 +143,33 @@ function Login() {
           </Header>
           <LoginCardContainer>
             <LoginCard>
+              {message && (
+                <Message>
+                  <span>{ message }</span>
+                </Message>
+              )}
               <h1>Log In</h1>
               <form id="login" method="POST" onSubmit={onSubmit}>
                 <Input
                   type="text"
-                  name="id"
+                  name="email"
                   placeholder="Enter meail"
                   spellCheck={false}
                   inputmode="email"
                   autoFocus={true}
+                  value={email}
+                  onChange={e => { setMessage(''); setEmail(e.target.value); }}
+                  onKeyDown={onEnterEmail}
                 />
                 <Input
                   type="password"
                   name="password"
                   placeholder="Enter password"
+                  value={password}
+                  onChange={e => { setMessage(''); setPassword(e.target.value); }}
+                  onKeyDown={onEnterPassword}
                 />
+                
                 <BtnLogin type="submit">Log In</BtnLogin>
               </form>
             </LoginCard>

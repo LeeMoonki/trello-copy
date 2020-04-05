@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('jwt-secret', config.secret);
 
-// app.use('/boards', authMiddleware);
+app.use('/boards', authMiddleware);
 app.use('/boards', boardsRouter);
 app.use('/auth', authRouter);
 

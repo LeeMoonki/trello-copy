@@ -4,13 +4,13 @@ function wait(amount = 0) {
   return new Promise(resolve => setTimeout(resolve, amount));
 }
 
-async function actWait(amount = 0) {
+export const actWait = async (amount = 0) => {
   await act(async () => {
     await wait(amount);
   });
 }
 
-async function updateWrapper(wrapper, amount = 0) {
+export const updateWrapper = async (wrapper, amount = 0) => {
   await act(async () => {
     await wait(amount);
     wrapper.update();

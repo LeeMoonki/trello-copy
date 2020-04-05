@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBoardList } from 'Reducers/board';
-import Router from 'next/router';
 import BoardList from 'Components/boards/BoardList';
 import { getBoardList } from 'Api/boards';
 import Layout from 'Components/MainLayout';
+import { apiErrorHandler } from 'Js/utils';
 
 const Container = styled.div`
   position: relative;
@@ -57,7 +57,7 @@ const BoardsWrapper = styled.div`
   max-width: 825px;
 `;
 
-function Boards({ name, statusCode }) {
+function Boards({ name }) {
   const dispatch = useDispatch();
 
   const [firstLoadingEnd, setFirstLoadingEnd] = useState(false);
@@ -69,7 +69,9 @@ function Boards({ name, statusCode }) {
         dispatch(setBoardList(res.data.list));
       } else {
         // API 서버의 에러코드와 SSR의 에러코드는 다르기 때문에 다음과 같이 조치한다.
-        Router.push(`/error?code=${res.error && res.error.code}`, '/error', { getInitialProps: true });
+        const errorCode = res.error && res.error.code;
+
+        apiErrorHandler(errorCode);
       }
     });
   }, []);
@@ -128,7 +130,6 @@ function Boards({ name, statusCode }) {
 Boards.getInitialProps = ctx => {
   // context의 객체, 배열 등 참조값들을 참조하여 사용하면 circular structure 에러 발생
   return {
-    statusCode: ctx.res.statusCode,
     name: ctx.req.params && ctx.req.params.id
   };
 };
