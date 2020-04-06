@@ -9,13 +9,6 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
-  // 기본 경로에 대한 처리 필요
-  // server.get('/', (req, res) => {
-  //   return LOGIN_INFO.id
-  //     ? res.redirect(`/${LOGIN_INFO.id}/boards`)
-  //     : res.redirect('/home');
-  // });
-
   server.get('/:id/boards', (req, res) => {
     app.render(req, res, '/boards');
   });

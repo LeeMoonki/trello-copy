@@ -30,7 +30,7 @@ function Error({ statusCode }) {
     const name = getUserName();
 
     if (name) {
-      const url = `/${name}/boards`;
+      const url = '/';
 
       Router.push(url, url, { getInitialProps: true });
     }

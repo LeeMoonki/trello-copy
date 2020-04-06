@@ -17,7 +17,7 @@ export const getUserName = () => {
 };
 
 export const checkLogin = () => {
-  return getTokenWithStorage() != null;
+  return getToken() != null;
 };
 
 export const login = ({ email, password }) => {
