@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { showWindowCover } from 'Reducers/app';
 import { toggleFavorite } from 'Reducers/board';
+import { updateFavorite } from 'Api/boards';
 
 const showup = keyframes`
   from {
@@ -97,8 +98,16 @@ function BoardCard(props) {
     e.preventDefault();
     e.stopPropagation();
 
-    dispatch(toggleFavorite({ boardId: props.boardId }));
-    console.log('favorite');
+    updateFavorite({ id: props.boardId, favorite: props.favorite ? 0 : 1 }).then(res => {
+      if (res.data) {
+        dispatch(toggleFavorite({ boardId: res.data.id, favorite: !!res.data.favorite }));
+      } else {
+        console.warn(`The process of updating favorite on id ${props.boardId} has an issue.`);
+      }
+    });
+
+    
+    
   };
 
   return (

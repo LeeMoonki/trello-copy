@@ -10,3 +10,10 @@ export const createBoard = ({
 }) => {
   return fetch.post('/boards', { body: { title, backgroundColor } });
 };
+
+export const updateFavorite = ({
+  id,
+  favorite
+}) => {
+  return fetch.put(`/boards/${id}`, { body: { favorite } });
+};

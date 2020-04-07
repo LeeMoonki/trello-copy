@@ -18,4 +18,17 @@ router.post('/', function(req, res) {
   res.json(resformat(true, createdBoard));
 });
 
+router.put('/:id', function(req, res) {
+  const { id } = req.params;
+  const { favorite } = req.body;
+  const success = db.updateFavorite(id, favorite);
+
+  const data = resformat(success, {
+    id,
+    favorite
+  });
+
+  res.json(data);
+});
+
 module.exports = router;

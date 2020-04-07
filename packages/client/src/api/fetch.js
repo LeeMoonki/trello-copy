@@ -19,7 +19,7 @@ const get = (url, options) => {
     })
 };
 
-const post = (url, options) => {
+const apiWithBody = method => (url, options) => {
   const token = getToken();
   const authorization = token ? { 'Authorization' : token } : {};
   const headers = {
@@ -29,7 +29,7 @@ const post = (url, options) => {
   };
 
   return fetch(`${API_DOMAIN}${url}`, {
-    method: 'POST',
+    method: method,
     ...(options || {}),
     headers,
     body: JSON.stringify(options.body)
@@ -39,7 +39,12 @@ const post = (url, options) => {
     })
 };
 
+const post = apiWithBody('POST');
+
+const put = apiWithBody('PUT')
+
 export default {
   get,
   post,
+  put
 };

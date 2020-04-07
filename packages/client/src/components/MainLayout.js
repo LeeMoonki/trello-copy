@@ -74,7 +74,7 @@ const ProfileImg = styled.button`
   }
 `;
 
-function MainLayout({ children }) {
+function MainLayout({ mainStyle, children }) {
   const router = useRouter();
 
   function onClickHome(e) {
@@ -111,7 +111,7 @@ function MainLayout({ children }) {
               </ProfileImg>
             </Right>
       </Header>
-      <Content>
+      <Content style={mainStyle}>
         { children }
       </Content>
     </>

@@ -20,4 +20,15 @@ module.exports = {
 
     return list[list.length - 1];
   },
+  updateFavorite: (id, favorite) => {
+    const index = list.findIndex(b => b.boardId === id || b.id == id);
+
+    if (index > -1) {
+      list[index].favorite = favorite != 0;
+
+      return true;
+    }
+
+    return false;
+  },
 };

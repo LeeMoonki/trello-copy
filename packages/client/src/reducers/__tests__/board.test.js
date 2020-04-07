@@ -38,8 +38,8 @@ describe('board reducer를 테스트합니다.', () => {
     const state = produce(initialState, draft => {
       draft.list.push({ id: 10, boardId: 'foo', favorite: false });
     });
-    const actionWithId = toggleFavorite({ id: 10 });
-    const actionWithBoardId = toggleFavorite({ boardId: 'foo' });
+    const actionWithId = toggleFavorite({ id: 10, favorite: true });
+    const actionWithBoardId = toggleFavorite({ boardId: 'foo', favorite: true });
 
     const newStateWithId = reducer(state, actionWithId);
     const newStateWithBoardId = reducer(state, actionWithBoardId);

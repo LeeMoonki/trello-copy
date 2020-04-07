@@ -18,10 +18,11 @@ export const appendBoard = board => ({
   board
 });
 
-export const toggleFavorite = ({ id, boardId }) => ({
+export const toggleFavorite = ({ id, boardId, favorite }) => ({
   type: TOGGLE_FAVORITE,
   id,
-  boardId
+  boardId,
+  favorite
 });
 
 const reducer = (state = initialState, action) => {
@@ -48,7 +49,7 @@ const reducer = (state = initialState, action) => {
         });
 
         if (index > -1) {
-          draft.list[index].favorite = !draft.list[index].favorite;
+          draft.list[index].favorite = action.favorite;
         }
       });
     default:
