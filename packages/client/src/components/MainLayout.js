@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import PopupLayout from 'Components/PopupLayout';
 
 const Header = styled.div`
   display: flex;
@@ -79,7 +80,8 @@ function MainLayout({ mainStyle, children }) {
 
   function onClickHome(e) {
     e.preventDefault();
-    // router.push('/'); // server의 '/' 경로를 타는게 아니라 pages에서 page(index.js)를 찾는다.
+    
+    router.push('/');
   }
 
   return (
@@ -114,6 +116,7 @@ function MainLayout({ mainStyle, children }) {
       <Content style={mainStyle}>
         { children }
       </Content>
+      <PopupLayout show={false} style={{ width: '100px', height: '100px', right: '3px' }}></PopupLayout>
     </>
   );
 }
