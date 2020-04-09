@@ -6,13 +6,13 @@ const Container = styled.div`
   box-sizing: border-box;
   position: absolute;
   top: 43px;
-  padding: 10px;
   background-color: #fbfbfb;
   box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, .15), -3px -3px 10px 0px rgba(0, 0, 0, .15);
   border-radius: 3px;
 `;
 
 const Header = styled.header`
+  margin-bottom: 5px;
   padding: 0 10px;
 `;
 
@@ -20,6 +20,7 @@ const Title = styled.div`
   display: grid;
   grid-template-columns: 16px 1fr 16px;
   height: 40px;
+  border-bottom: 1px solid #dedede;
 
   & > h1 {
     line-height: 40px;

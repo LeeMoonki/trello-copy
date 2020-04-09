@@ -27,7 +27,7 @@ function Index() {
 
   return (
     <Container>
-      <Progress size="60" color="#000"></Progress>
+      <Progress size={60} color="#000"></Progress>
     </Container>
   );
 }
