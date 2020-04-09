@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import PopupLayout from 'Components/PopupLayout';
+
+import CreateBoardPopup from 'Components/popup/CreateBoardPopup';
 
 const Header = styled.div`
   display: flex;
@@ -78,45 +80,54 @@ const ProfileImg = styled.button`
 function MainLayout({ mainStyle, children }) {
   const router = useRouter();
 
-  function onClickHome(e) {
+  const onClickHome = e => {
     e.preventDefault();
     
     router.push('/');
   }
 
+  const [showCreate, setShowCreate] = useState(false);
+  const onClickCreate = () => {
+    setShowCreate(!showCreate);
+  };
+  
+
   return (
     <>
       <Header id="header">
         <Left>
-              <A  className="header__a" href="/" onClick={onClickHome}>
-                <span>Home</span>
-              </A>
-              <Button className="header__button">
-                <span>Boards</span>
-              </Button>
-            </Left>
-            <Logo>
-              <a href="/" onClick={onClickHome}>Trello Copy</a>
-            </Logo>
-            <Right>
-              <Button className="header__button">
-                <span>Create</span>
-              </Button>
-              <Button className="header__button">
-                <span>Info</span>
-              </Button>
-              <Button className="header__button">
-                <span>Notification</span>
-              </Button>
-              <ProfileImg>
-                <div></div>
-              </ProfileImg>
-            </Right>
+          <A  className="header__a" href="/" onClick={onClickHome}>
+            <span>Home</span>
+          </A>
+          <Button className="header__button">
+            <span>Boards</span>
+          </Button>
+        </Left>
+        <Logo>
+          <a href="/" onClick={onClickHome}>Trello Copy</a>
+        </Logo>
+        <Right>
+          <Button className="header__button" onClick={onClickCreate}>
+            <span>Create</span>
+          </Button>
+          <Button className="header__button">
+            <span>Info</span>
+          </Button>
+          <Button className="header__button">
+            <span>Notification</span>
+          </Button>
+          <ProfileImg>
+            <div></div>
+          </ProfileImg>
+        </Right>
       </Header>
       <Content style={mainStyle}>
         { children }
       </Content>
-      <PopupLayout show={false} style={{ width: '100px', height: '100px', right: '3px' }}></PopupLayout>
+      <CreateBoardPopup
+        show={showCreate}
+        
+      />
     </>
   );
 }
