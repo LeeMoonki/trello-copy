@@ -77,10 +77,10 @@ function BoardCard(props) {
   const dispatch = useDispatch();
   const [over, setOver] = useState(false);
 
-  function onMouseOver() {
+  const onMouseOver = () => {
     setOver(true);
   }
-  function onMouseOut() {
+  const onMouseOut = () => {
     setOver(false);
   }
 
@@ -105,9 +105,6 @@ function BoardCard(props) {
         console.warn(`The process of updating favorite on id ${props.boardId} has an issue.`);
       }
     });
-
-    
-    
   };
 
   return (

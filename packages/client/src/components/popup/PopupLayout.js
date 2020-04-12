@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ButtonCloseIcon from '../../../public/btn-close--gray.svg'
 
 const Container = styled.div`
+  padding-bottom: 10px;
   box-sizing: border-box;
   position: absolute;
   top: 43px;
@@ -39,14 +40,16 @@ const Title = styled.div`
 
 const Content = styled.div``;
 
-function PopupLayout({ style, children, title }) {
+function PopupLayout({ style, children, title, onClickClose }) {
   return (
     <Container style={style}>
       { title && (
         <Header>
           <Title>
             <h1>{ title }</h1>
-            <button><img src={ButtonCloseIcon} /></button>
+            <button onClick={onClickClose}>
+              <img src={ButtonCloseIcon} />
+            </button>
           </Title>
         </Header>
       )}
@@ -58,7 +61,8 @@ function PopupLayout({ style, children, title }) {
 }
 
 PopupLayout.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
+  onClickClose: PropTypes.func
 };
 
 export default PopupLayout;

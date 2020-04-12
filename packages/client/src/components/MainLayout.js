@@ -87,14 +87,25 @@ function MainLayout({ mainStyle, children }) {
   }
 
   const [showCreate, setShowCreate] = useState(false);
-  const onClickCreate = () => {
+  const onClickCreate = e => {
+    e.stopPropagation();
     setShowCreate(!showCreate);
   };
-  
+  const onClickClose = () => {
+    setShowCreate(false);
+  };
+
+  // Header와 Content에 event bubbling을 둬서 팝업을 닫는 로직을 걸어둔다.
+  const onClickLayoutHeader = () => {
+    showCreate && setShowCreate(false);
+  };
+  const onClickLayoutContent = () => {
+    showCreate && setShowCreate(false);
+  };
 
   return (
     <>
-      <Header id="header">
+      <Header id="header" onClick={onClickLayoutHeader}>
         <Left>
           <A  className="header__a" href="/" onClick={onClickHome}>
             <span>Home</span>
@@ -121,12 +132,12 @@ function MainLayout({ mainStyle, children }) {
           </ProfileImg>
         </Right>
       </Header>
-      <Content style={mainStyle}>
+      <Content style={mainStyle} onClick={onClickLayoutContent}>
         { children }
       </Content>
       <CreateBoardPopup
         show={showCreate}
-        
+        onClickClose={onClickClose}
       />
     </>
   );
