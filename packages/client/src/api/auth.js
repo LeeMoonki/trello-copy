@@ -8,12 +8,17 @@ const loginWithStorage = (token, name) => {
   localStorage.setItem(LOCAL_STORAGE_NAME, name);
 };
 
+const logoutWithStorage = () => {
+  localStorage.removeItem(LOCAL_STORAGE_TOKEN);
+  localStorage.removeItem(LOCAL_STORAGE_NAME);
+};
+
 export const getToken = () => {
   return localStorage.getItem(LOCAL_STORAGE_TOKEN);
 };
 
 export const getUserName = () => {
-  return localStorage.getItem(LOCAL_STORAGE_NAME)
+  return localStorage.getItem(LOCAL_STORAGE_NAME);
 };
 
 export const checkLogin = () => {
@@ -26,6 +31,16 @@ export const login = ({ email, password }) => {
       loginWithStorage(res.data.token, res.data.name);
     }
 
+    return res;
+  });
+};
+
+export const logout = () => {
+  return fetch.post('/auth/logout').then(res => {
+    if (res.success) {
+      logoutWithStorage();
+    }
+    
     return res;
   });
 };

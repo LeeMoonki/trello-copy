@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import CreateBoardPopup from 'Components/popup/CreateBoardPopup';
+import ProfilePopup from 'Components/popup/ProfilePopup';
 
 const Header = styled.div`
   display: flex;
@@ -86,21 +87,43 @@ function MainLayout({ mainStyle, children }) {
     router.push('/');
   }
 
+  // popups
   const [showCreate, setShowCreate] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+
+  // common
+  const hidePopups = except => {
+    except !== 'create' && showCreate && setShowCreate(false);
+    except !== 'profile' && showProfile && setShowProfile(false);
+  };
+
+  // create
   const onClickCreate = e => {
     e.stopPropagation();
+    hidePopups('create');
     setShowCreate(!showCreate);
   };
-  const onClickClose = () => {
+  const onClickCloseCreate = () => {
     setShowCreate(false);
   };
 
+  // profile
+  const onClickProfile = e => {
+    e.stopPropagation();
+    hidePopups('profile');
+    setShowProfile(!showProfile);
+  };
+  const onClickCloseProfile = () => {
+    setShowProfile(false);
+  };
+  // // popups
+
   // Header와 Content에 event bubbling을 둬서 팝업을 닫는 로직을 걸어둔다.
   const onClickLayoutHeader = () => {
-    showCreate && setShowCreate(false);
+    hidePopups();
   };
   const onClickLayoutContent = () => {
-    showCreate && setShowCreate(false);
+    hidePopups();
   };
 
   return (
@@ -127,7 +150,7 @@ function MainLayout({ mainStyle, children }) {
           <Button className="header__button">
             <span>Notification</span>
           </Button>
-          <ProfileImg>
+          <ProfileImg onClick={onClickProfile}>
             <div></div>
           </ProfileImg>
         </Right>
@@ -137,7 +160,11 @@ function MainLayout({ mainStyle, children }) {
       </Content>
       <CreateBoardPopup
         show={showCreate}
-        onClickClose={onClickClose}
+        onClickClose={onClickCloseCreate}
+      />
+      <ProfilePopup
+        show={showProfile}
+        onClickClose={onClickCloseProfile}
       />
     </>
   );

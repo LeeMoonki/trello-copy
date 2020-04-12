@@ -32,7 +32,7 @@ const apiWithBody = method => (url, options) => {
     method: method,
     ...(options || {}),
     headers,
-    body: JSON.stringify(options.body)
+    body: JSON.stringify((options && options.body) || {})
   })
     .then(res => {
       return res.json();
