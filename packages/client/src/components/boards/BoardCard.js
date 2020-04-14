@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
 import { useDispatch } from 'react-redux';
 import { showWindowCover } from 'Reducers/app';
 import { toggleFavorite } from 'Reducers/board';
@@ -90,7 +91,9 @@ function BoardCard(props) {
       dispatch(showWindowCover());
     } else {
       // push to Board page
-      console.log('push');
+      const url = `/b/${props.boardId}/${props.title}`;
+      
+      Router.push(url, url, { getInitialProps: true });
     }
   };
 

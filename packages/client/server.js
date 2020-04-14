@@ -13,6 +13,10 @@ app.prepare().then(() => {
     app.render(req, res, '/boards');
   });
 
+  server.get('/b/:id/:name', (req, res) => {
+    app.render(req, res, '/cards');
+  });
+
   server.get('*', (req, res) => {
     return handle(req, res);
   });
