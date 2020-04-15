@@ -16,24 +16,12 @@ const Content = styled.main`
   overflow-y: auto;
   height: calc(100vh - 40px);
 `;
-const HeaderElementsWrapper = styled.div`
-  & > .header__button, & > .header__a {
-    margin-right: 4px;
-    height: 32px;
-    line-height: 32px;
-    font-weight: bold;
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 3px;
-    z-index: 10;
-  }
-`;
-const Left = styled(HeaderElementsWrapper)`
+const Left = styled.div`
   display: flex;
   flex-grow: 1;
   justify-content: flex-start;
 `;
-const Right = styled(HeaderElementsWrapper)`
+const Right = styled.div`
   display: flex;
   flex-grow: 1;
   justify-content: flex-end;
@@ -52,14 +40,6 @@ const Logo = styled.div`
     color: #fff;
     font-size: 20px;
     font-weight: bold;
-  }
-`;
-const A = styled.a`
-  padding: 0px 8px;
-`;
-const Button = styled.button`
-  & > span {
-    padding: 0px 8px;
   }
 `;
 const ProfileImg = styled.button`
@@ -130,26 +110,26 @@ function MainLayout({ mainStyle, children }) {
     <>
       <Header id="header" onClick={onClickLayoutHeader}>
         <Left>
-          <A  className="header__a" href="/" onClick={onClickHome}>
+          <a className="styled-button" href="/" onClick={onClickHome}>
             <span>Home</span>
-          </A>
-          <Button className="header__button">
+          </a>
+          <button className="styled-button">
             <span>Boards</span>
-          </Button>
+          </button>
         </Left>
         <Logo>
           <a href="/" onClick={onClickHome}>Trello Copy</a>
         </Logo>
         <Right>
-          <Button className="header__button" onClick={onClickCreate}>
+          <button className="styled-button" onClick={onClickCreate}>
             <span>Create</span>
-          </Button>
-          <Button className="header__button">
+          </button>
+          <button className="styled-button">
             <span>Info</span>
-          </Button>
-          <Button className="header__button">
+          </button>
+          <button className="styled-button">
             <span>Notification</span>
-          </Button>
+          </button>
           <ProfileImg onClick={onClickProfile}>
             <div></div>
           </ProfileImg>
