@@ -41,7 +41,9 @@ const BoardName = styled.div`
     padding: 0;
   }
   &.changing > span {
-    display: none;
+    position: absolute;
+    left: -1000px;
+    top: -1000px;
   }
   &.changing > input {
     display: block;
@@ -56,7 +58,7 @@ const BoardName = styled.div`
   }
   & > input {
     display: none;
-    box-sizing: border-box;
+    box-sizing: content-box;
     margin: 0;
     padding: 0 ${boardNamePadding}px;
     height: ${headerHeight}px;
@@ -110,14 +112,14 @@ function Cards(props) {
         <Container>
           <Header>
             <HeaderLeft>
-              <BoardName ref={refBoardName} onClick={onClickBoardName} className={changingBoardName ? 'changing' : null}>
+              <BoardName onClick={onClickBoardName} className={changingBoardName ? 'changing' : null}>
                 <input
                   ref={refBoardNameIpt}
-                  style={{ width: refBoardName.current && `${parseFloat(getComputedStyle(refBoardName.current).width) + (boardNamePadding * 2)}px` }}
+                  style={{ width: refBoardName.current && `${parseFloat(getComputedStyle(refBoardName.current).width)}px` }}
                   onBlur={onBlurBoardName}
                   onChange={e => setBoardName(e.target.value)}
                 />
-                <span>{ boardName }</span>
+                <span ref={refBoardName}>{ boardName }</span>
               </BoardName>
               <button className="styled-button">
                 즐겨찾기 등록
