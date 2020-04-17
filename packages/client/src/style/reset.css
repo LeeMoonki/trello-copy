@@ -435,11 +435,16 @@ button {
     padding: 0px 8px;
     height: 32px;
     line-height: 32px;
-    font-weight: bold;
     color: #fff;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 3px;
     z-index: 10;
+}
+.styled-button.bold {
+    font-weight: bold;
+}
+.styled-button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .button.primary {

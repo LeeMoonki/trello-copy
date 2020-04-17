@@ -110,10 +110,10 @@ function MainLayout({ mainStyle, children }) {
     <>
       <Header id="header" onClick={onClickLayoutHeader}>
         <Left>
-          <a className="styled-button" href="/" onClick={onClickHome}>
+          <a className="styled-button bold" href="/" onClick={onClickHome}>
             <span>Home</span>
           </a>
-          <button className="styled-button">
+          <button className="styled-button bold">
             <span>Boards</span>
           </button>
         </Left>
@@ -121,13 +121,13 @@ function MainLayout({ mainStyle, children }) {
           <a href="/" onClick={onClickHome}>Trello Copy</a>
         </Logo>
         <Right>
-          <button className="styled-button" onClick={onClickCreate}>
+          <button className="styled-button bold" onClick={onClickCreate}>
             <span>Create</span>
           </button>
-          <button className="styled-button">
+          <button className="styled-button bold">
             <span>Info</span>
           </button>
-          <button className="styled-button">
+          <button className="styled-button bold">
             <span>Notification</span>
           </button>
           <ProfileImg onClick={onClickProfile}>

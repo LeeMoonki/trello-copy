@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  padding: 8px 8px 4px;
+  padding: 0px 8px 4px;
   &:after {
     display: block;
     content: "";
@@ -22,10 +22,26 @@ const Header = styled.div`
   }
 `;
 
+const HeaderButton = styled.button`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+const Divider = styled.div`
+  margin-left: 4px;
+  margin-right: 8px;
+  width: 1px;
+  height: 16px;
+  background-color: hsla(0, 0%, 100%, .24);
+`;
+
 // header left
 const HeaderLeft = styled.div`
   float: left;
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
 `;
 const BoardName = styled.div`
   margin-right: 4px;
@@ -72,6 +88,10 @@ const BoardName = styled.div`
 // header right
 const HeaderRight = styled.div`
   float: right;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
 `;
 
 // content
@@ -121,11 +141,19 @@ function Cards(props) {
                 />
                 <span ref={refBoardName}>{ boardName }</span>
               </BoardName>
-              <button className="styled-button">
-                즐겨찾기 등록
-              </button>
+              <HeaderButton className="styled-button">즐겨찾기 등록</HeaderButton>
+              <Divider />
+              <HeaderButton className="styled-button">Personal</HeaderButton>
+              <Divider />
+              <HeaderButton className="styled-button">Private</HeaderButton>
+              <Divider />
+              <HeaderButton className="styled-button">Invite</HeaderButton>
             </HeaderLeft>
-            <HeaderRight></HeaderRight>
+            <HeaderRight>
+              <HeaderButton className="styled-button">Watching</HeaderButton>
+              <HeaderButton className="styled-button">Butler</HeaderButton>
+              <HeaderButton className="styled-button">Show Menu</HeaderButton>
+            </HeaderRight>
           </Header>
           <ContentWrapper>
 
