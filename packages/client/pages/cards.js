@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Layout from 'Components/MainLayout';
+import CardList from 'Components/cards/CardList';
 
 const headerHeight =  32;
 const boardNamePadding = 12;
@@ -127,7 +128,7 @@ function Cards(props) {
   }, [changingBoardName]);
 
   return (
-    <Layout>
+    <Layout mainStyle={{ overflowY: 'hidden' }}>
       {firstLoadingEnd && (
         <Container>
           <Header>
@@ -156,7 +157,8 @@ function Cards(props) {
             </HeaderRight>
           </Header>
           <ContentWrapper>
-
+            <CardList name="Todo"></CardList>
+            <CardList name="weekly"></CardList>
           </ContentWrapper>
         </Container>
       )}

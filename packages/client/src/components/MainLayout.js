@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import CreateBoardPopup from 'Components/popup/CreateBoardPopup';
 import ProfilePopup from 'Components/popup/ProfilePopup';
@@ -149,5 +150,9 @@ function MainLayout({ mainStyle, children }) {
     </>
   );
 }
+
+MainLayout.propTypes = {
+  mainStyle: PropTypes.object
+};
 
 export default MainLayout;
