@@ -97,7 +97,12 @@ const HeaderRight = styled.div`
 
 // content
 const ContentWrapper = styled.div`
+  overflow-x: auto;
+  overflow-y: hidden;
   flex-grow: 1;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  white-space: nowrap;
 `;
 
 function Cards(props) {

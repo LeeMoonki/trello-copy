@@ -9,11 +9,13 @@ const Wrapper = styled.div`
   width: 272px;
   margin: 0 4px;
   height: 100%;
+  max-height: 100%;
 `;
 
 const Container = styled.div`
+  box-sizing: border-box;
   display: flex;
-  flex-direction: colunm;
+  flex-direction: column;
   padding: 12px 8px;
   max-height: 100%;
   background-color: #ebebeb;
@@ -28,6 +30,9 @@ const Header = styled.div`
 `;
 const CardName = styled.div`
   width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
 
   &.changing > span {
     display: none;
@@ -45,7 +50,7 @@ const CardName = styled.div`
     padding: 0;
     width: 100%;
     height: 32px;
-    font-size: 14px;
+    font-weight: bold;
     border: 0;
     background-color: #fff;
     box-shadow: none;
@@ -66,7 +71,17 @@ const BtnMore = styled.button`
   }
 `;
 
-const Footer = styled.div``;
+const Content = styled.div`
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+`;
+
+const Footer = styled.div`
+  flex-shrink: 0;
+  min-height: 32px;
+  max-height: 32px;
+`;
 
 function CardList(props) {
   const refListNameIpt = useRef(null);
@@ -103,6 +118,9 @@ function CardList(props) {
           </CardName>
           <BtnMore/>
         </Header>
+        <Content>
+          {/* <div style={{height: 800, backgroundColor: '#f00'}}></div> */}
+        </Content>
         <Footer></Footer>
       </Container>
     </Wrapper>
