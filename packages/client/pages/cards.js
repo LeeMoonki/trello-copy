@@ -42,7 +42,7 @@ const HeaderLeft = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 8px;
+  margin: 8px 0;
 `;
 const BoardName = styled.div`
   margin-right: 4px;
@@ -92,7 +92,7 @@ const HeaderRight = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 8px;
+  margin: 8px 0;
 `;
 
 // content
