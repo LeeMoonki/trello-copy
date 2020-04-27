@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import MoreIcon from '../../../public/more.svg';
+import PlusIcon from '../../../public/plus.svg';
 
 const Wrapper = styled.div`
   overflow: hidden;
@@ -16,16 +17,17 @@ const Container = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: 12px 8px;
   max-height: 100%;
   background-color: #ebebeb;
   border-radius: 3px;
 `;
 
 const Header = styled.div`
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 12px 8px 4px 12px;
   width: 100%;
 `;
 const CardName = styled.div`
@@ -78,9 +80,55 @@ const Content = styled.div`
 `;
 
 const Footer = styled.div`
+  box-sizing: border-box;
   flex-shrink: 0;
-  min-height: 32px;
-  max-height: 32px;
+  display: flex;
+  padding: 6px 8px 8px;
+`;
+const AddCard = styled.a`
+  display: flex;
+  flex: 1 0 auto;
+  align-items: center;
+  padding: 4px 5px;
+  color: #5e6c84;
+  border-radius: 3px;
+  cursor: pointer;
+
+  & > span:last-child {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    color: #3b4a62;
+    background-color: #dadada;
+  }
+`;
+const BtnPlus = styled.span`
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url(${PlusIcon});
+  background-repeat: no-repeat;
+  background-position: center;
+`;
+const BtnTemplate = styled.div`
+  margin-left: 5px;
+  padding: 4px 5px;
+  border-radius: 3px;
+  cursor: pointer;
+
+  & > span {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+  }
+
+  &:hover {
+    color: #3b4a62;
+    background-color: #dadada;
+  }
 `;
 
 function CardList(props) {
@@ -116,12 +164,20 @@ function CardList(props) {
               onChange={e => setListName(e.target.value)}
             />
           </CardName>
-          <BtnMore/>
+          <BtnMore />
         </Header>
         <Content>
           {/* <div style={{height: 800, backgroundColor: '#f00'}}></div> */}
         </Content>
-        <Footer></Footer>
+        <Footer>
+          <AddCard>
+            <BtnPlus />
+            <span>Add another card</span>
+          </AddCard>
+          <BtnTemplate>
+            <span>t</span>
+          </BtnTemplate>
+        </Footer>
       </Container>
     </Wrapper>
   );
