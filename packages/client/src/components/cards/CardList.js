@@ -11,6 +11,10 @@ const Wrapper = styled.div`
   margin: 0 4px;
   height: 100%;
   max-height: 100%;
+  
+  & .noselect {
+    user-select: none;
+  }
 `;
 
 const Container = styled.div`
@@ -29,6 +33,7 @@ const Header = styled.div`
   align-items: center;
   padding: 12px 8px 4px 12px;
   width: 100%;
+  cursor: pointer;
 `;
 const CardName = styled.div`
   width: 100%;
@@ -151,13 +156,33 @@ function CardList(props) {
     }
   }, [changingListName]);
 
+  const onDrag = e => {
+    e.preventDefault();
+
+    const startX = e.clientX;
+
+    document.onmousemove = e => {
+
+      props.onDrag && props.onDrag({
+        start: startX,
+        current: e.clientX,
+        relativeX: e.clientX - startX
+      });
+    };
+
+    document.onmouseup = () => {
+      document.onmousemove = null;
+      document.onmouseup = null;
+    };
+  };
+
 
   return (
     <Wrapper>
       <Container>
-        <Header>
+        <Header onMouseDown={onDrag}>
           <CardName onClick={onClickListName} className={changingListName ? 'changing' : null}>
-            <span>{listName}</span>
+            <span className="noselect">{listName}</span>
             <input
               ref={refListNameIpt}
               onBlur={onBlurListName}
@@ -172,10 +197,10 @@ function CardList(props) {
         <Footer>
           <AddCard>
             <BtnPlus />
-            <span>Add another card</span>
+            <span className="noselect">Add another card</span>
           </AddCard>
           <BtnTemplate>
-            <span>t</span>
+            <span className="noselect">t</span>
           </BtnTemplate>
         </Footer>
       </Container>
@@ -184,9 +209,11 @@ function CardList(props) {
 }
 
 CardList.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  onDrag: PropTypes.func,
 };
 
-CardList.defaultProps = {};
+CardList.defaultProps = {
+};
 
 export default CardList;

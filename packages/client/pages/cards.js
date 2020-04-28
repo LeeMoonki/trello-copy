@@ -164,6 +164,7 @@ function Cards(props) {
           <ContentWrapper>
             <CardList name="Todo"></CardList>
             <CardList name="weekly"></CardList>
+            <CardList name="third"></CardList>
           </ContentWrapper>
         </Container>
       )}
