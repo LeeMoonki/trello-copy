@@ -17,7 +17,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "file-loader": "^5.1.0",
-    "immer": "^6.0.2",
+    "immer": "^9.0.6",
     "next": "^9.2.2",
     "next-redux-wrapper": "^5.0.0",
     "prop-types": "^15.7.2",
